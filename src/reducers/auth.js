@@ -14,7 +14,7 @@ const initialState = user
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
-
+  debugger;
   switch (type) {
     case REGISTER_SUCCESS:
       return {
@@ -30,7 +30,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isLoggedIn: true,
-        user: payload.user,
+        user: payload,
       };
     case LOGIN_FAIL:
       return {

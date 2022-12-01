@@ -23,7 +23,8 @@ const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
 
-  const { user: currentUser } = useSelector((state) => state.auth);
+  const currentUser = useSelector((state) => state.auth);
+  // debugger;
   const dispatch = useDispatch();
 
   let location = useLocation();
@@ -38,23 +39,23 @@ const App = () => {
     dispatch(logout());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (currentUser) {
-      setShowModeratorBoard(currentUser.roles.includes("ROLE_MODERATOR"));
-      setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
-    } else {
-      setShowModeratorBoard(false);
-      setShowAdminBoard(false);
-    }
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     setShowModeratorBoard(currentUser.roles.includes("ROLE_MODERATOR"));
+  //     setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
+  //   } else {
+  //     setShowModeratorBoard(false);
+  //     setShowAdminBoard(false);
+  //   }
 
-    EventBus.on("logout", () => {
-      logOut();
-    });
+  //   EventBus.on("logout", () => {
+  //     logOut();
+  //   });
 
-    return () => {
-      EventBus.remove("logout");
-    };
-  }, [currentUser, logOut]);
+  //   return () => {
+  //     EventBus.remove("logout");
+  //   };
+  // }, [currentUser, logOut]);
 
   return (
     <div>
@@ -94,11 +95,11 @@ const App = () => {
           )}
         </div>
 
-        {currentUser ? (
+        {currentUser?.isLoggedIn ? (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link to={"/profile"} className="nav-link">
-                {currentUser.username}
+                {currentUser?.user?.username}
               </Link>
             </li>
             <li className="nav-item">

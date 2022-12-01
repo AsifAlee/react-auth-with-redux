@@ -48,9 +48,14 @@ export const register = (username, email, password) => (dispatch) => {
 export const login = (username, password) => (dispatch) => {
   return AuthService.login(username, password).then(
     (data) => {
+      // debugger;
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { user: data },
+        payload: {
+          username: data.user.name,
+          email: data.user.email,
+          role: data.user.role,
+        },
       });
 
       return Promise.resolve();
